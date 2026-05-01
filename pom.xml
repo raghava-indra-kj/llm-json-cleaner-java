@@ -10,7 +10,7 @@
 
     <name>llm-json-cleaner</name>
     <description>A lightweight Java library to clean, repair, and extract valid JSON from LLM responses.</description>
-    <url>https://github.com/raghava-indra-kj/llm-json-cleaner</url>
+    <url>https://github.com/raghava-indra-kj/llm-json-cleaner-java</url>
     <inceptionYear>2026</inceptionYear>
 
     <licenses>
@@ -31,9 +31,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/raghava-indra-kj/llm-json-cleaner.git</connection>
-        <developerConnection>scm:git:https://github.com/raghava-indra-kj/llm-json-cleaner.git</developerConnection>
-        <url>https://github.com/raghava-indra-kj/llm-json-cleaner</url>
+        <connection>scm:git:https://github.com/raghava-indra-kj/llm-json-cleaner-java.git</connection>
+        <developerConnection>scm:git:https://github.com/raghava-indra-kj/llm-json-cleaner-java.git</developerConnection>
+        <url>https://github.com/raghava-indra-kj/llm-json-cleaner-java</url>
         <tag>HEAD</tag>
     </scm>
 
