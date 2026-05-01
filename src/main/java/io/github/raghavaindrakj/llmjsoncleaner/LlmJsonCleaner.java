@@ -30,8 +30,6 @@ public final class LlmJsonCleaner {
             {"NaN", "null"}
     };
 
-    private static final LlmJsonCleaner DEFAULT = new LlmJsonCleaner();
-
     private final ObjectMapper objectMapper;
 
     /**
@@ -51,36 +49,6 @@ public final class LlmJsonCleaner {
     }
 
     /**
-     * Cleans and parses a raw LLM response using a default cleaner instance.
-     *
-     * @param rawResponse raw text returned by an LLM
-     * @return parsed JSON payload extracted from the response
-     */
-    public static JsonNode clean(String rawResponse) {
-        return DEFAULT.cleanToJson(rawResponse);
-    }
-
-    /**
-     * Attempts to clean and parse a raw LLM response using a default cleaner instance.
-     *
-     * @param rawResponse raw text returned by an LLM
-     * @return parsed JSON payload when cleaning succeeds
-     */
-    public static Optional<JsonNode> tryClean(String rawResponse) {
-        return DEFAULT.tryCleanToJson(rawResponse);
-    }
-
-    /**
-     * Cleans, parses, and serializes a raw LLM response as normalized compact JSON.
-     *
-     * @param rawResponse raw text returned by an LLM
-     * @return compact JSON string
-     */
-    public static String cleanToString(String rawResponse) {
-        return DEFAULT.cleanToJsonString(rawResponse);
-    }
-
-    /**
      * Cleans and parses a raw LLM response into JSON.
      *
      * @param rawResponse raw text returned by an LLM
@@ -93,42 +61,14 @@ public final class LlmJsonCleaner {
         if (isBlank(cleanedResponse)) {
             throw new IllegalArgumentException("LLM response cannot be empty");
         }
-        Optional<JsonNode> cleanedJson = trySanitizeToJson(cleanedResponse);
+        Optional<JsonNode> cleanedJson = tryCleanedResponseToJson(cleanedResponse);
         if (cleanedJson.isPresent()) {
             return cleanedJson.get();
         }
         throw new LlmJsonCleanerException("LLM response could not be cleaned into JSON");
     }
 
-    /**
-     * Attempts to clean and parse a raw LLM response into JSON.
-     *
-     * @param rawResponse raw text returned by an LLM
-     * @return parsed JSON payload when cleaning succeeds
-     */
-    public Optional<JsonNode> tryCleanToJson(String rawResponse) {
-        String cleanedResponse = cleanTextArtifacts(rawResponse);
-        if (isBlank(cleanedResponse)) {
-            return Optional.empty();
-        }
-        return trySanitizeToJson(cleanedResponse);
-    }
-
-    /**
-     * Cleans, parses, and serializes a raw LLM response as normalized compact JSON.
-     *
-     * @param rawResponse raw text returned by an LLM
-     * @return compact JSON string
-     */
-    public String cleanToJsonString(String rawResponse) {
-        try {
-            return objectMapper.writeValueAsString(cleanToJson(rawResponse));
-        } catch (JsonProcessingException exception) {
-            throw new LlmJsonCleanerException("Cleaned JSON could not be serialized", exception);
-        }
-    }
-
-    private Optional<JsonNode> trySanitizeToJson(String cleanedResponse) {
+    private Optional<JsonNode> tryCleanedResponseToJson(String cleanedResponse) {
         Optional<JsonNode> directJson = tryParseWithCommonRepairs(cleanedResponse);
         if (directJson.isPresent()) {
             return directJson;

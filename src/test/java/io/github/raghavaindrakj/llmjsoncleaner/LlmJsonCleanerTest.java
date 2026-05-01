@@ -3,8 +3,6 @@ package io.github.raghavaindrakj.llmjsoncleaner;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -109,13 +107,6 @@ class LlmJsonCleanerTest {
     }
 
     @Test
-    void tryCleanReturnsEmptyForInvalidContent() {
-        Optional<JsonNode> node = cleaner.tryCleanToJson("No JSON here");
-
-        assertFalse(node.isPresent());
-    }
-
-    @Test
     void cleanRejectsBlankInput() {
         assertThrows(IllegalArgumentException.class, () -> cleaner.cleanToJson("   "));
     }
@@ -125,8 +116,4 @@ class LlmJsonCleanerTest {
         assertThrows(LlmJsonCleanerException.class, () -> cleaner.cleanToJson("No JSON here"));
     }
 
-    @Test
-    void staticConvenienceApiReturnsCompactJsonString() {
-        assertEquals("{\"ok\":true}", LlmJsonCleaner.cleanToString("```json\n{\"ok\": true}\n```"));
-    }
 }
