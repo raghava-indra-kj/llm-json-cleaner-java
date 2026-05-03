@@ -11,9 +11,38 @@ Repository: [raghava-indra-kj/llm-json-cleaner-java](https://github.com/raghava-
 
 The library is compiled for Java 8 bytecode and can be used from Java 8 through current Java versions.
 
+## Install With JitPack
+
+Add JitPack as a repository:
+
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+Then add the dependency:
+
+```xml
+<dependency>
+    <groupId>com.github.raghava-indra-kj</groupId>
+    <artifactId>llm-json-cleaner-java</artifactId>
+    <version>v1.0.0</version>
+</dependency>
+```
+
+The Java package and import stay the same:
+
+```java
+import io.github.raghavaindrakj.llmjsoncleaner.LlmJsonCleaner;
+```
+
 ## Install Locally
 
-Until the artifact is published to Maven Central or another Maven repository, install it into your local Maven repository:
+If you clone this repository and want to use the artifact from your local Maven cache:
 
 ```bash
 mvn clean install
@@ -133,6 +162,16 @@ mvn verify
 This runs unit tests, builds the jar, builds source and javadoc jars, and checks Java 8 API compatibility.
 
 ## Maven Coordinates
+
+JitPack coordinates:
+
+```xml
+<groupId>com.github.raghava-indra-kj</groupId>
+<artifactId>llm-json-cleaner-java</artifactId>
+<version>v1.0.0</version>
+```
+
+Project coordinates inside this Maven build:
 
 ```xml
 <groupId>io.github.raghavaindrakj</groupId>
